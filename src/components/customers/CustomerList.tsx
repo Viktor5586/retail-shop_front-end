@@ -60,8 +60,11 @@ const CustomerList: React.FC = () => {
                         <div className="card-body">
                             <h5 className="card-title">{customer.firstName} {customer.lastName}</h5>
                             <p className="card-text">
-                                <strong>Email:</strong> {customer.email}<br />
-                                <strong>Phone:</strong> {customer.phoneNumber}
+                                <strong>Email:</strong>
+                                    <span id="customerEmail" className="ms-2">{customer.email}</span>
+                                    <br />
+                                <strong>Phone:</strong> 
+                                <span id="customerPhone" className="ms-2">{customer.phoneNumber}</span>
                             </p>
 
                             <div className="d-flex justify-content-between">
