@@ -52,8 +52,9 @@ const CustomerOrdersPage: React.FC = () => {
       try {
         const numericCustomerId = Number(customerId);
         const ordersData = await ordersApi.getOrdersForCustomer(numericCustomerId);
-        const normalizedOrders = Array.isArray(ordersData) ? ordersData : [ordersData];        
+        const normalizedOrders = Array.isArray(ordersData) ? ordersData : [ordersData];
         const productIds = new Set<number>();
+
         for (let order of normalizedOrders) {
           for (let orderItem of order.orderItems) {
             productIds.add(orderItem.productId);
@@ -71,11 +72,7 @@ const CustomerOrdersPage: React.FC = () => {
           }
         }
 
-        const totalSalesAmount = normalizedOrders.reduce((sum, order) => {
-            const orderTotal = order.orderItems.reduce((itemSum: number, orderItem: OrderItem) => itemSum + orderItem.lineTotal, 0);
-            return sum + orderTotal;
-          }, 0);
-          
+        const totalSalesAmount = await ordersApi.getTotalSalesForCustomer(numericCustomerId);
         setOrders(normalizedOrders);
         setTotalSales(totalSalesAmount);
       } catch (error) {
